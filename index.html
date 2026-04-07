@@ -546,16 +546,33 @@ function calcDayNeededFromColorRows(perItem,mode){
   },0);
 }
 
-// 시뮬레이션: 총 걸이 수별 대응률 계산
-function calcSimulation(weekList,totalHooks,perItem,lifetime){
+// 일별 대응률 계산 (신규 핵심 로직)
+function calcDailyRate(totalHooks, perItem, lifetime, weekList){
   if(!weekList||weekList.length===0)return{rate:null,ok:0,total:0};
-  let ok=0;
+  let okDays=0, totalDays=0;
   weekList.forEach(wk=>{
-    const weeklyPeel=Math.ceil(wk.weeklyUsage/lifetime);
-    const avail=totalHooks-weeklyPeel;
-    if(wk.peakNeeded<=avail)ok++;
+    const avail=totalHooks-wk.weeklyPeel;
+    wk.days.forEach(d=>{
+      totalDays++;
+      if(d.needed<=avail)okDays++;
+    });
   });
-  return{rate:weekList.length>0?ok/weekList.length:null,ok,total:weekList.length};
+  return{rate:totalDays>0?okDays/totalDays:null,ok:okDays,total:totalDays};
+}
+
+// 특정 총 걸이 수의 일대응률 계산
+function calcDailyRateForTotal(total, lifetime, weekList){
+  if(!weekList||weekList.length===0)return{rate:null,ok:0,total:0};
+  let okDays=0, totalDays=0;
+  weekList.forEach(wk=>{
+    const peel=Math.ceil(wk.weeklyUsage/lifetime);
+    const avail=total-peel;
+    wk.days.forEach(d=>{
+      totalDays++;
+      if(d.needed<=avail)okDays++;
+    });
+  });
+  return{rate:totalDays>0?okDays/totalDays:null,ok:okDays,total:totalDays};
 }
 
 function goStep3(){goStep(3);renderResult();}
@@ -586,113 +603,75 @@ function renderResult(){
     const{weekList}=analysis;
     const maxTotalNeeded=Math.max(...weekList.map(w=>w.totalNeeded));
     const peakWeek=weekList.find(w=>w.totalNeeded===maxTotalNeeded);
-    const dr=calcSimulation(weekList,cur,perItem,lifetime);
-    const okWeeks=weekList.filter(w=>!w.over).length;
+    const dr=calcDailyRate(cur,perItem,lifetime,weekList);
+    const drPct=dr.rate!==null?Math.round(dr.rate*100):0;
+
+    // 일대응률 80% 달성 최소 걸이 수 계산
+    let addFor80=null, totalFor80=null;
+    for(let t=cur;t<=cur+300;t++){
+      const dr80=calcDailyRateForTotal(t,lifetime,weekList);
+      if(dr80.rate!==null&&dr80.rate>=0.8){addFor80=t-cur;totalFor80=t;break;}
+    }
+
+    const statusColor=drPct>=80?'#3B6D11':drPct>=60?'#854F0B':'#A32D2D';
+    const statusBg=drPct>=80?'#EAF3DE':drPct>=60?'#FAEEDA':'#FCEBEB';
+    const statusText=drPct>=80?'적정':'부족';
 
     summaryHTML='<div class="g4" style="gap:12px;margin-bottom:12px">'
       +'<div class="metric-card"><div class="metric-label">현재 걸이</div><div class="metric-value">'+cur+'개</div></div>'
       +'<div class="metric-card"><div class="metric-label">최대 필요 총 걸이</div><div class="metric-value">'+maxTotalNeeded+'개</div></div>'
-      +'<div class="metric-card"><div class="metric-label">주간 대응률</div><div class="metric-value">'+(weekList.length>0?Math.round(okWeeks/weekList.length*100):0)+'%</div></div>'
-      +'<div class="metric-card"><div class="metric-label">분석 주차</div><div class="metric-value">'+weekList.length+'주</div></div>'
+      +'<div class="metric-card"><div class="metric-label">일별 대응률</div><div class="metric-value" style="color:'+statusColor+'">'
+        +drPct+'%</div><div style="font-size:11px;margin-top:2px;padding:1px 6px;border-radius:99px;display:inline-block;background:'+statusBg+';color:'+statusColor+'">'
+        +statusText+'</div></div>'
+      +'<div class="metric-card"><div class="metric-label">분석 일수</div><div class="metric-value">'+dr.ok+'/'+dr.total+'일</div></div>'
       +'</div>';
+
+    // 80% 달성 추천 박스
+    if(drPct<80&&addFor80!==null){
+      summaryHTML+='<div style="background:#EAF3DE;border:1px solid #1D9E75;border-radius:10px;padding:1rem 1.25rem;margin-bottom:12px;display:flex;align-items:center;gap:12px">'
+        +'<div style="font-size:28px;font-weight:500;color:#1D9E75;flex-shrink:0">+'+addFor80+'개</div>'
+        +'<div>'
+        +'<div style="font-size:14px;font-weight:500;color:#27500A">일대응률 80% 달성 최소 추가 제작 수량</div>'
+        +'<div style="font-size:13px;color:#3B6D11;margin-top:3px">현재 '+cur+'개 → '+totalFor80+'개로 증가 시 일대응률 80% 확보</div>'
+        +'<div style="font-size:12px;color:#639922;margin-top:2px">최대 필요 총 걸이 '+maxTotalNeeded+'개 기준으로 피크 주차 대응은 별도 검토 필요</div>'
+        +'</div></div>';
+    } else if(drPct>=80){
+      summaryHTML+='<div style="background:#EAF3DE;border:1px solid #1D9E75;border-radius:10px;padding:0.875rem 1.25rem;margin-bottom:12px">'
+        +'<div style="font-size:13px;font-weight:500;color:#27500A">현재 걸이 수로 일대응률 80% 충족 ('+drPct+'%)</div>'
+        +'<div style="font-size:12px;color:#3B6D11;margin-top:2px">추가 제작 불필요 — 단, 피크 주차 ('+(peakWeek?peakWeek.label:'-')+') 최대 필요 '+maxTotalNeeded+'개 확인 권장</div>'
+        +'</div>';
+    }
+
     if(peakWeek){
       summaryHTML+='<div class="warn-box">피크 주차 ('+peakWeek.label+'): 주간 사용 '+peakWeek.weeklyUsage+'회 → 박리 '+peakWeek.weeklyPeel+'개 → 가용 '+peakWeek.avail+'개 → 필요 총 <strong>'+peakWeek.totalNeeded+'개</strong></div>';
     }
   }
 
-  // 추천 로직 (신규)
+  // 추천 로직 (일대응률 기반)
   let recsHTML='';
   if(analysis&&analysis.weekList&&analysis.weekList.length>0){
     const{weekList}=analysis;
     const recs=[];
     for(let total=cur;total<=cur+300;total+=1){
-      const simOk=weekList.filter(wk=>{
-        const peel=Math.ceil(wk.weeklyUsage/lifetime);
-        return wk.peakNeeded<=(total-peel);
-      }).length;
-      const rate=simOk/weekList.length;
-      const maxNeeded=Math.max(...weekList.map(wk=>{
-        const peel=Math.ceil(wk.weeklyUsage/lifetime);
-        return wk.peakNeeded+(total-peel<0?total:peel);
-      }));
-
-      if(!recs.find(r=>r.label==='100% 대응')&&rate>=1.0)recs.push({label:'100% 대응',total,add:total-cur,rate,color:'#534AB7'});
-      if(!recs.find(r=>r.label==='주간 90%+')&&rate>=0.9)recs.push({label:'주간 90%+',total,add:total-cur,rate,color:'#378ADD'});
-      if(!recs.find(r=>r.label==='주간 85%+')&&rate>=0.85)recs.push({label:'주간 85%+',total,add:total-cur,rate,color:'#1D9E75'});
-      if(!recs.find(r=>r.label==='주간 70%+')&&rate>=0.7)recs.push({label:'주간 70%+',total,add:total-cur,rate,color:'#D85A30'});
+      const dr=calcDailyRateForTotal(total,lifetime,weekList);
+      const rate=dr.rate||0;
+      if(!recs.find(r=>r.label==='일대응 100%')&&rate>=1.0)recs.push({label:'일대응 100%',total,add:total-cur,rate,color:'#534AB7'});
+      if(!recs.find(r=>r.label==='일대응 90%+')&&rate>=0.9)recs.push({label:'일대응 90%+',total,add:total-cur,rate,color:'#378ADD'});
+      if(!recs.find(r=>r.label==='일대응 80%+')&&rate>=0.8)recs.push({label:'일대응 80%+ ★권장',total,add:total-cur,rate,color:'#1D9E75'});
+      if(!recs.find(r=>r.label==='일대응 70%+')&&rate>=0.7)recs.push({label:'일대응 70%+',total,add:total-cur,rate,color:'#D85A30'});
       if(recs.length>=4)break;
     }
-    // 정렬: 대응률 낮은 것부터
     recs.sort((a,b)=>a.rate-b.rate);
     recsHTML=recs.map((r,i)=>{
-      const weeklyPeelAtTotal=weekList.map(wk=>Math.ceil(wk.weeklyUsage/lifetime));
-      const avgPeel=weeklyPeelAtTotal.length>0?Math.round(weeklyPeelAtTotal.reduce((a,b)=>a+b,0)/weeklyPeelAtTotal.length):0;
-      return '<div class="rec-card '+(i===recs.length-1?'best':'')+'"><div class="rec-badge" style="background:'+r.color+'22;color:'+r.color+'">'+r.label+'</div>'
-        +'<div style="flex:1"><div style="font-size:14px;font-weight:500">'+(r.add===0?'현재 유지':'+'+r.add+'개 추가')+' → 총 '+r.total+'개</div>'
-        +'<div style="font-size:12px;color:#888;margin-top:2px">주간 대응률 '+Math.round(r.rate*100)+'% · 평균 박리 '+avgPeel+'개/주</div></div>'
-        +rTag(r.rate)+'</div>';
+      const avgPeel=Math.round(weekList.reduce((s,wk)=>s+Math.ceil(wk.weeklyUsage/lifetime),0)/weekList.length);
+      const isRecommended=r.label.includes('★');
+      return '<div class="rec-card '+(isRecommended?'best':'')+'">'
+        +'<div class="rec-badge" style="background:'+r.color+'22;color:'+r.color+'">'+(isRecommended?'★ ':'')+Math.round(r.rate*100)+'%</div>'
+        +'<div style="flex:1">'
+        +'<div style="font-size:14px;font-weight:500">'+(r.add===0?'현재 유지':'+'+r.add+'개 추가')+' → 총 '+r.total+'개</div>'
+        +'<div style="font-size:12px;color:#888;margin-top:2px">'+r.label+' · 평균 박리 '+avgPeel+'개/주</div>'
+        +'</div></div>';
     }).join('');
-  }
-
-  // 일자별 테이블
-  if(analysis&&analysis.dailyRows&&analysis.colors){
-    const{dailyRows,weekList,colors}=analysis;
-    const cThs=colors.map(c=>'<th>'+c+'</th>').join('');
-
-    // 주차별 가용 걸이 맵
-    const weekAvailMap={};
-    if(weekList)weekList.forEach(wk=>{wk.days.forEach(d=>{weekAvailMap[d.date]=wk.avail;});});
-
-    dailyHTML='<div style="overflow-x:auto"><table class="dt"><thead><tr>'
-      +'<th style="text-align:left">일자</th>'+cThs+'<th>합계</th><th>필요걸이</th><th>가용걸이</th><th>판정</th>'
-      +'</tr></thead><tbody>'
-      +dailyRows.map(row=>{
-        const avail=weekAvailMap[row.date]!==undefined?weekAvailMap[row.date]:'—';
-        const over=typeof avail==='number'&&row.needed>avail;
-        return '<tr><td style="white-space:nowrap">'+row.date+'</td>'
-          +colors.map(c=>'<td>'+(row.byColor[c]||0)+'</td>').join('')
-          +'<td>'+row.total+'</td>'
-          +'<td class="'+(over?'cell-over':'')+'">'+row.needed+'</td>'
-          +'<td>'+avail+'</td>'
-          +'<td>'+(over?'<span class="tag tag-err">초과</span>':(row.needed>0?'<span class="tag tag-ok">대응</span>':''))+'</td></tr>';
-      }).join('')
-      +'</tbody></table></div>';
-
-    // 주차별 테이블
-    if(weekList){
-      const maxTN=Math.max(...weekList.map(w=>w.totalNeeded));
-      let wn=1;
-      const wTrs=weekList.map(wk=>{
-        const isPeak=wk.totalNeeded===maxTN;
-        const dayTrs=wk.days.map(d=>{
-          const avail=wk.avail;
-          const over=d.needed>avail;
-          return '<tr style="font-size:12px;background:#fafaf8"><td style="text-align:left;padding-left:20px;color:#888">'+d.date+'</td>'
-            +colors.map(c=>'<td style="color:#888">'+(d.byColor[c]||0)+'</td>').join('')
-            +'<td style="color:#888">'+d.total+'</td>'
-            +'<td class="'+(over?'cell-over':'')+'" style="font-size:12px">'+d.needed+'</td>'
-            +'<td style="color:#888">'+avail+'</td>'
-            +'<td style="font-size:12px;color:#888">'+wk.weeklyUsage+'회</td>'
-            +'<td style="color:#888">'+wk.weeklyPeel+'</td>'
-            +'<td></td></tr>';
-        }).join('');
-        return '<tr class="week-hdr'+(isPeak?' highlight-row':'')+'"><td style="text-align:left">'+(wn++)+'주 ('+wk.label+')</td>'
-          +colors.map(c=>'<td>'+Math.round(wk.byColor[c]||0)+'</td>').join('')
-          +'<td>'+Math.round(Object.values(wk.byColor).reduce((a,b)=>a+b,0))+'</td>'
-          +'<td style="font-weight:500">'+wk.peakNeeded+'</td>'
-          +'<td style="font-weight:500">'+wk.avail+'</td>'
-          +'<td>'+wk.weeklyUsage+'회</td>'
-          +'<td>'+wk.weeklyPeel+'</td>'
-          +'<td>'+(wk.over?'<span class="tag tag-err">X 초과</span>':'<span class="tag tag-ok">O 여유</span>')+'</td></tr>'
-          +dayTrs;
-      }).join('');
-      weeklyHTML='<div style="overflow-x:auto"><table class="dt"><thead><tr>'
-        +'<th style="text-align:left">주차</th>'+cThs
-        +'<th>투입합계</th><th>피크일<br>필요걸이</th><th>가용걸이</th><th>주간<br>사용횟수</th><th>주간<br>박리량</th><th>판정</th>'
-        +'</tr></thead><tbody>'+wTrs+'</tbody></table></div>'
-        +'<div class="notice">노란 행 = 피크 주차 · 판정: 피크일 필요걸이 > 가용걸이 → X 초과</div>'
-        +'<div class="notice">박리량 = ⌈주간 사용횟수 ÷ 수명('+lifetime+')⌉ · 가용 = 총 걸이('+cur+') − 박리량</div>';
-    }
   }
 
   // 시뮬레이션 테이블
@@ -700,35 +679,31 @@ function renderResult(){
     const{weekList}=analysis;
     const simSteps=[0,10,20,30,50,80,100,120,150,169,200].map(add=>{
       const total=cur+add;
-      const simOk=weekList.filter(wk=>{
-        const peel=Math.ceil(wk.weeklyUsage/lifetime);
-        return wk.peakNeeded<=(total-peel);
-      }).length;
-      const rate=weekList.length>0?simOk/weekList.length:0;
+      const dr=calcDailyRateForTotal(total,lifetime,weekList);
       const peakPeel=Math.max(...weekList.map(wk=>Math.ceil(wk.weeklyUsage/lifetime)));
       const minAvail=total-peakPeel;
       const maxPeakNeeded=Math.max(...weekList.map(w=>w.peakNeeded));
-      return{add,total,rate,simOk,minAvail,maxPeakNeeded,peakPeel};
+      return{add,total,rate:dr.rate||0,ok:dr.ok,totalDays:dr.total,minAvail,maxPeakNeeded,peakPeel};
     });
-    // 중복 대응률 제거
-    const seen=new Set();
+    let prevUnder80=true;
     simHTML='<div style="overflow-x:auto"><table class="dt"><thead><tr>'
-      +'<th style="text-align:left">총 걸이</th><th>피크 박리량</th><th>피크 최소 가용</th><th>피크 필요걸이</th><th>주간 대응률</th><th>판정</th>'
+      +'<th style="text-align:left">총 걸이</th><th>피크 박리량</th><th>피크 최소 가용</th><th>피크 필요걸이</th><th>일대응률</th><th>판정</th>'
       +'</tr></thead><tbody>'
       +simSteps.map(s=>{
-        const rateStr=Math.round(s.rate*100)+'%';
-        const isDup=seen.has(rateStr);seen.add(rateStr);
-        return '<tr'+(s.add===0?' style="font-weight:500"':'')+'>'
+        const drPct=Math.round(s.rate*100);
+        const isFirst80=prevUnder80&&drPct>=80;
+        if(drPct>=80)prevUnder80=false;
+        return '<tr'+(s.add===0?' style="font-weight:500"':'')+(isFirst80?' class="highlight-row"':'')+'>'
           +'<td style="text-align:left">'+(s.add===0?'현재 '+s.total+'개':'+'+s.add+'개 ('+s.total+'개)')+'</td>'
           +'<td>'+s.peakPeel+'개</td>'
           +'<td class="'+(s.minAvail<0?'cell-over':'')+'">'+s.minAvail+'개</td>'
           +'<td>'+s.maxPeakNeeded+'개</td>'
-          +'<td>'+rTag(s.rate)+'</td>'
-          +'<td>'+(s.minAvail>=s.maxPeakNeeded?'<span class="tag tag-ok">100%</span>':'<span class="tag tag-err">부족</span>')+'</td>'
+          +'<td>'+rTag(s.rate)+' ('+s.ok+'/'+s.totalDays+'일)</td>'
+          +'<td>'+(drPct>=80?'<span class="tag tag-ok">적정</span>':'<span class="tag tag-err">부족</span>')+'</td>'
           +'</tr>';
       }).join('')
       +'</tbody></table></div>'
-      +'<div class="notice">피크 박리량: 가장 물량이 많은 주 박리량 · 주간 대응률: 전체 주차 중 가용 충분한 주 비율</div>';
+      +'<div class="notice">노란 행 = 일대응률 80% 최초 달성 수량 · 일대응률: 전체 일수 중 필요걸이 ≤ 가용걸이인 날 비율</div>';
   }
 
   // 색상별
