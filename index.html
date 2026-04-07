@@ -674,6 +674,71 @@ function renderResult(){
     }).join('');
   }
 
+  // 일자별 / 주차별 테이블
+  if(route!=='manual'&&analysis&&analysis.dailyRows&&analysis.colors){
+    const{dailyRows,weekList,colors}=analysis;
+    const cThs=colors.map(c=>'<th>'+c+'</th>').join('');
+
+    // 주차별 가용 걸이 맵
+    const weekAvailMap={};
+    if(weekList)weekList.forEach(wk=>{wk.days.forEach(d=>{weekAvailMap[d.date]=wk.avail;});});
+
+    dailyHTML='<div style="overflow-x:auto"><table class="dt"><thead><tr>'
+      +'<th style="text-align:left">일자</th>'+cThs+'<th>합계</th><th>필요걸이</th><th>가용걸이</th><th>판정</th>'
+      +'</tr></thead><tbody>'
+      +dailyRows.map(row=>{
+        const avail=weekAvailMap[row.date]!==undefined?weekAvailMap[row.date]:'—';
+        const over=typeof avail==='number'&&row.needed>avail;
+        return '<tr><td style="white-space:nowrap">'+row.date+'</td>'
+          +colors.map(c=>'<td>'+(row.byColor[c]||0)+'</td>').join('')
+          +'<td>'+row.total+'</td>'
+          +'<td class="'+(over?'cell-over':'')+'">'+row.needed+'</td>'
+          +'<td>'+avail+'</td>'
+          +'<td>'+(over?'<span class="tag tag-err">초과</span>':(row.needed>0?'<span class="tag tag-ok">대응</span>':''))+'</td></tr>';
+      }).join('')
+      +'</tbody></table></div>';
+
+    if(weekList&&weekList.length>0){
+      const maxTN=Math.max(...weekList.map(w=>w.totalNeeded));
+      let wn=1;
+      const wTrs=weekList.map(wk=>{
+        const isPeak=wk.totalNeeded===maxTN;
+        const dayTrs=wk.days.map(d=>{
+          const over=d.needed>wk.avail;
+          return '<tr style="font-size:12px;background:#fafaf8"><td style="text-align:left;padding-left:20px;color:#888">'+d.date+'</td>'
+            +colors.map(c=>'<td style="color:#888">'+(d.byColor[c]||0)+'</td>').join('')
+            +'<td style="color:#888">'+d.total+'</td>'
+            +'<td class="'+(over?'cell-over':'')+'" style="font-size:12px">'+d.needed+'</td>'
+            +'<td style="color:#888">'+wk.avail+'</td>'
+            +'<td style="font-size:12px;color:#888">'+wk.weeklyUsage+'회</td>'
+            +'<td style="color:#888">'+wk.weeklyPeel+'</td>'
+            +'<td></td></tr>';
+        }).join('');
+        return '<tr class="week-hdr'+(isPeak?' highlight-row':'')+'"><td style="text-align:left">'+(wn++)+'주 ('+wk.label+')</td>'
+          +colors.map(c=>'<td>'+Math.round(wk.byColor[c]||0)+'</td>').join('')
+          +'<td>'+Math.round(Object.values(wk.byColor).reduce((a,b)=>a+b,0))+'</td>'
+          +'<td style="font-weight:500">'+wk.peakNeeded+'</td>'
+          +'<td style="font-weight:500">'+wk.avail+'</td>'
+          +'<td>'+wk.weeklyUsage+'회</td>'
+          +'<td>'+wk.weeklyPeel+'</td>'
+          +'<td>'+(wk.over?'<span class="tag tag-err">X 초과</span>':'<span class="tag tag-ok">O 여유</span>')+'</td></tr>'
+          +dayTrs;
+      }).join('');
+      weeklyHTML='<div style="overflow-x:auto"><table class="dt"><thead><tr>'
+        +'<th style="text-align:left">주차</th>'+cThs
+        +'<th>투입합계</th><th>피크일<br>필요걸이</th><th>가용걸이</th><th>주간<br>사용횟수</th><th>주간<br>박리량</th><th>판정</th>'
+        +'</tr></thead><tbody>'+wTrs+'</tbody></table></div>'
+        +'<div class="notice">노란 행 = 피크 주차 · 판정: 피크일 필요걸이 > 가용걸이 → X 초과</div>'
+        +'<div class="notice">박리량 = ⌈주간 사용횟수 ÷ 수명('+lifetime+')⌉ · 가용 = 총 걸이('+cur+') − 박리량</div>';
+    }
+  } else if(route==='manual'){
+    dailyHTML='<p style="font-size:13px;color:#888">직접 입력 모드에서는 일자별/주차별 분석을 표시하지 않습니다.</p>';
+    weeklyHTML=dailyHTML;
+  } else {
+    dailyHTML='<p style="font-size:13px;color:#888">데이터를 업로드하면 표시됩니다.</p>';
+    weeklyHTML=dailyHTML;
+  }
+
   // 시뮬레이션 테이블
   if(analysis&&analysis.weekList){
     const{weekList}=analysis;
