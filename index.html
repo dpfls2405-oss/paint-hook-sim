@@ -12,50 +12,42 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#1
 .app-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.5rem;}
 .app-title{font-size:22px;font-weight:500;margin-bottom:4px;}
 .app-sub{font-size:13px;color:#666;}
-.help-btn{width:34px;height:34px;border-radius:50%;border:1px solid #ccc;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;margin-top:2px;}
+.help-btn{width:34px;height:34px;border-radius:50%;border:1px solid #ccc;background:#fff;cursor:pointer;font-size:15px;flex-shrink:0;margin-top:2px;}
 .help-btn:hover{background:#f0f0f0;}
-/* 모달 */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:1000;align-items:center;justify-content:center;}
 .modal-overlay.open{display:flex;}
-.modal{background:#fff;border-radius:12px;padding:1.5rem;max-width:560px;width:90%;max-height:85vh;overflow-y:auto;}
+.modal{background:#fff;border-radius:12px;padding:1.5rem;max-width:580px;width:90%;max-height:85vh;overflow-y:auto;}
 .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;}
 .modal-title{font-size:15px;font-weight:500;}
 .modal-close{border:none;background:none;font-size:18px;cursor:pointer;color:#666;padding:2px 6px;}
 .modal-body{font-size:13px;line-height:2;color:#333;}
 .modal-body .formula{background:#f5f4f0;border-radius:8px;padding:10px 14px;margin:6px 0;font-family:monospace;font-size:13px;}
 .modal-body .sub{color:#666;font-size:12px;padding-left:12px;}
-.modal-body .section-title{font-weight:500;margin-top:14px;margin-bottom:4px;font-size:13px;}
-/* 스텝바 */
+.modal-body .section-title{font-weight:500;margin-top:14px;margin-bottom:4px;}
 .step-bar{display:flex;border:1px solid #ddd;border-radius:10px;overflow:hidden;margin-bottom:1.5rem;background:#f0ede8;}
 .step-tab{flex:1;padding:10px;text-align:center;font-size:13px;cursor:pointer;color:#888;border-right:1px solid #ddd;}
 .step-tab:last-child{border-right:none;}
 .step-tab.active{background:#fff;color:#1a1a1a;font-weight:500;}
-/* 카드 */
 .card{background:#fff;border:1px solid #e8e5e0;border-radius:12px;padding:1.25rem;margin-bottom:1rem;}
 .card-title{font-size:11px;font-weight:500;color:#888;margin-bottom:12px;text-transform:uppercase;letter-spacing:.05em;}
-/* 그리드 */
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
-/* 필드 */
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;}
 .field{display:flex;flex-direction:column;gap:4px;}
 .field label{font-size:11px;color:#888;}
 .field input,.field select{border:1px solid #ddd;border-radius:8px;padding:7px 10px;font-size:14px;background:#fff;color:#1a1a1a;width:100%;}
 .field input:focus,.field select:focus{outline:none;border-color:#888;}
-/* 버튼 */
 .btn{padding:8px 20px;border-radius:8px;border:1px solid #ddd;background:#fff;color:#1a1a1a;font-size:14px;cursor:pointer;}
 .btn-primary{background:#1a1a1a;color:#fff;border-color:#1a1a1a;}
 .btn:hover{background:#f5f4f0;}
 .btn-primary:hover{background:#333;}
 .btn-sm{padding:5px 12px;font-size:12px;}
-/* 태그 */
 .tag{display:inline-block;padding:2px 8px;border-radius:99px;font-size:11px;font-weight:500;}
 .tag-ok{background:#EAF3DE;color:#3B6D11;}
 .tag-warn{background:#FAEEDA;color:#854F0B;}
 .tag-err{background:#FCEBEB;color:#A32D2D;}
-/* 스텝 페이지 */
 .step-page{display:none;}
 .step-page.active{display:block;}
-/* 경로 선택 */
 .route-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1rem;}
 .route-card{border:1px solid #e0ddd8;border-radius:12px;padding:1.25rem;cursor:pointer;}
 .route-card:hover{border-color:#999;}
@@ -63,45 +55,39 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#1
 .route-icon{font-size:22px;margin-bottom:8px;}
 .route-title{font-size:14px;font-weight:500;margin-bottom:4px;}
 .route-desc{font-size:12px;color:#888;line-height:1.6;}
-/* 드롭존 */
 .drop-zone{border:1px dashed #ccc;border-radius:12px;padding:1.5rem;text-align:center;cursor:pointer;background:#fafaf8;}
 .drop-zone:hover,.drop-zone.drag-over{background:#f0ede8;}
 .drop-zone p{font-size:14px;color:#888;margin-top:8px;}
-/* 테이블 */
 table.dt{width:100%;border-collapse:collapse;font-size:13px;}
-table.dt th{text-align:center;padding:6px 8px;font-weight:500;color:#888;border-bottom:1px solid #eee;font-size:12px;}
+table.dt th{text-align:center;padding:7px 8px;font-weight:500;color:#888;border-bottom:1px solid #eee;font-size:12px;background:#fafaf8;}
 table.dt td{padding:6px 8px;border-bottom:1px solid #eee;text-align:center;}
 table.dt td:first-child{text-align:left;}
 table.dt tr:last-child td{border-bottom:none;}
-/* 메트릭 */
+table.dt tr.week-hdr{background:#f5f4f0;font-weight:500;}
+table.dt tr.week-hdr td{border-top:1px solid #ddd;}
 .metric-card{background:#f5f4f0;border-radius:8px;padding:12px;text-align:center;}
 .metric-label{font-size:11px;color:#888;margin-bottom:4px;}
 .metric-value{font-size:22px;font-weight:500;}
-/* 추천 */
 .rec-card{border:1px solid #e0ddd8;border-radius:10px;padding:1rem 1.25rem;margin-bottom:8px;display:flex;align-items:center;gap:12px;}
 .rec-card.best{border-color:#1D9E75;}
 .rec-badge{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;text-align:center;}
-/* 토글 */
 .tgl{display:flex;border:1px solid #ddd;border-radius:8px;overflow:hidden;width:fit-content;}
 .tgl-btn{padding:5px 14px;font-size:13px;cursor:pointer;background:#f5f4f0;border:none;color:#888;}
 .tgl-btn.active{background:#1a1a1a;color:#fff;}
-/* 칩 */
 .chip-wrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;max-height:180px;overflow-y:auto;padding:2px;}
 .chip{padding:3px 10px;border-radius:99px;font-size:12px;cursor:pointer;border:1px solid #ddd;background:#f5f4f0;color:#555;user-select:none;}
 .chip.active{background:#1a1a1a;color:#fff;border-color:#1a1a1a;}
 .chip.by-code{border-style:dashed;}
-/* 결과 탭 */
 .rtabs{display:flex;border:1px solid #e0ddd8;border-radius:8px;overflow:hidden;margin-bottom:1rem;width:fit-content;}
 .rtab{padding:7px 18px;font-size:13px;cursor:pointer;background:#f5f4f0;color:#888;border-right:1px solid #e0ddd8;}
 .rtab:last-child{border-right:none;}
 .rtab.active{background:#fff;color:#1a1a1a;font-weight:500;}
 .rsec{display:none;}
 .rsec.active{display:block;}
-.week-hdr{background:#f5f4f0;font-weight:500;}
 .cell-over{background:#FCEBEB;color:#A32D2D;font-weight:500;}
-/* 기타 */
 .notice{font-size:12px;color:#888;margin-top:8px;}
 .info-box{font-size:12px;padding:8px 12px;border-radius:8px;border-left:3px solid #378ADD;background:#E6F1FB;color:#0C447C;line-height:1.7;margin-bottom:12px;}
+.warn-box{font-size:12px;padding:8px 12px;border-radius:8px;border-left:3px solid #EF9F27;background:#FAEEDA;color:#633806;line-height:1.7;margin-bottom:12px;}
 .search-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;}
 .search-row input{flex:1;border:1px solid #ddd;border-radius:8px;padding:6px 10px;font-size:13px;}
 .filter-tabs{display:flex;border:1px solid #ddd;border-radius:8px;overflow:hidden;width:fit-content;margin-bottom:10px;}
@@ -110,15 +96,15 @@ table.dt tr:last-child td{border-bottom:none;}
 .qty-bar{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f5f4f0;border-radius:8px;margin-bottom:4px;flex-wrap:wrap;}
 .qty-bar label{font-size:12px;color:#888;white-space:nowrap;}
 .sel-summary{font-size:12px;padding:6px 10px;background:#f5f4f0;border-radius:8px;margin-bottom:8px;line-height:1.6;}
+.highlight-row{background:#fff8e1;}
 </style>
 </head>
 <body>
 <div class="page">
-  <!-- 헤더 -->
   <div class="app-header">
     <div>
       <div class="app-title">도장 걸이 수량 시뮬레이션</div>
-      <div class="app-sub">생산 계획·실적 기반으로 도장 걸이 적정 수량과 추가 필요량을 계산합니다</div>
+      <div class="app-sub">주간 사용횟수 기반으로 박리량과 가용 걸이를 계산합니다</div>
     </div>
     <button class="help-btn" onclick="document.getElementById('helpModal').classList.add('open')" title="계산 방식 설명">?</button>
   </div>
@@ -127,43 +113,42 @@ table.dt tr:last-child td{border-bottom:none;}
   <div class="modal-overlay" id="helpModal" onclick="if(event.target===this)this.classList.remove('open')">
     <div class="modal">
       <div class="modal-header">
-        <div class="modal-title">계산 조건 상세 설명</div>
+        <div class="modal-title">계산 방식 상세 설명</div>
         <button class="modal-close" onclick="document.getElementById('helpModal').classList.remove('open')">✕</button>
       </div>
       <div class="modal-body">
-        <div class="section-title">핵심 운영 조건</div>
+        <div class="section-title">핵심 개념</div>
         <ul style="padding-left:16px;font-size:12px;color:#555;line-height:2">
-          <li>공용 걸이: 색상(WW/BK/WGR 등) 구분 없이 같은 걸이 사용</li>
-          <li>1주 색상 고정: 한 번 색상을 걸면 박리 전까지(1주일) 그 색상 전용</li>
-          <li>분할 박리: 총 걸이를 수명(회전) 수만큼 그룹으로 나눠 매주 1그룹씩 박리</li>
-          <li>주 1회 박리: 한 번 보내고 1주 후 복귀 → 항상 1그룹분 빠져있음</li>
+          <li>걸이 1개가 N회 사용되면 박리 필요 (수명 = 최대 사용 횟수)</li>
+          <li>박리는 주 1회 발송, 1주 후 복귀</li>
+          <li>많이 쓴 주 = 박리량 많음 / 적게 쓴 주 = 박리량 적음 (변동)</li>
+          <li>공용 걸이: 색상 구분 없이 같은 걸이 사용</li>
         </ul>
 
-        <div class="section-title" style="margin-top:16px;">계산 로직</div>
+        <div class="section-title" style="margin-top:16px">계산 로직</div>
 
-        <div class="formula">① 분할 박리 수량 = ⌈총 걸이 ÷ 수명(회전)⌉</div>
-        <div class="sub">예) 110개 ÷ 5회전 = 22개/주 박리</div>
+        <div class="formula">① 일 필요 걸이 = Σ 각 색상별 ⌈투입량 ÷ 장착수⌉</div>
+        <div class="sub">고정값 설정 색상은 고정값 사용 (예: WGR = 15개)</div>
 
-        <div class="formula">② 가용 걸이 = 총 걸이 − 박리 수량</div>
-        <div class="sub">예) 110 − 22 = 88개 가용</div>
+        <div class="formula">② 주간 총 사용횟수 = Σ(해당 주 각 일의 필요 걸이)</div>
+        <div class="sub">예) 70 + 35 + 58 + 88 + 49 = 300회</div>
 
-        <div class="formula">③ 일 최대 생산 = 가용 걸이 × 개당 장착 수</div>
-        <div class="sub">예) 88개 × 4발 = 352개/일</div>
+        <div class="formula">③ 주간 박리량 = ⌈주간 총 사용횟수 ÷ 수명⌉</div>
+        <div class="sub">예) ⌈300 ÷ 5⌉ = 60개 박리</div>
 
-        <div class="formula">④ 필요 걸이(일평균) = 각 색상별 ⌈일평균 투입량 ÷ 개당 장착 수⌉ 합산</div>
-        <div class="sub">단, 협의된 색상은 고정값 사용 (예: WGR = 15개 고정)</div>
-        <div class="sub">→ 2단계 색상별 조정에서 특정 색상의 필요 걸이 수를 고정할 수 있습니다</div>
+        <div class="formula">④ 가용 걸이 = 총 걸이 − 주간 박리량</div>
+        <div class="sub">예) 110 − 60 = 50개 가용</div>
 
-        <div class="formula">⑤ 여유율 = (가용 − 필요) ÷ 필요 × 100</div>
-        <div class="sub">양수: 여유 있음 / 음수: 걸이 부족</div>
+        <div class="formula">⑤ 판정: 피크일 필요 걸이 ≤ 가용 걸이 → O 여유 / X 초과</div>
 
-        <div class="formula">⑥ 일별 대응률 = 필요 걸이 ≤ 가용인 일수 ÷ 전체 일수</div>
-        <div class="sub">85% 이상이면 안정적 운영 가능으로 판단</div>
+        <div class="formula">⑥ 필요 총 걸이 = 피크일 필요 걸이 + 주간 박리량</div>
+        <div class="sub">예) 88(피크) + 60(박리) = 148개 필요</div>
 
         <div style="margin-top:14px;padding:10px 12px;background:#f5f4f0;border-radius:8px;font-size:12px;color:#555;line-height:1.8">
-          <strong>판정 기준 (주차별)</strong><br>
-          주중 하루라도 필요 걸이 &gt; 가용 걸이이면 <span style="color:#A32D2D;font-weight:500">X 초과</span><br>
-          모든 날 대응 가능하면 <span style="color:#3B6D11;font-weight:500">O 여유</span>
+          <strong>기존 방식과 차이점</strong><br>
+          기존: 박리량 = ⌈총 걸이 ÷ 수명⌉ → 고정값<br>
+          수정: 박리량 = ⌈주간 사용횟수 ÷ 수명⌉ → 주마다 변동<br><br>
+          물량이 많은 주는 박리량이 늘고 가용 걸이가 줄어드는 구조를 정확히 반영합니다.
         </div>
       </div>
     </div>
@@ -183,10 +168,9 @@ table.dt tr:last-child td{border-bottom:none;}
       <div class="g3" style="gap:12px">
         <div class="field"><label>현재 걸이 수 (개)</label><input id="curHooks" type="number" value="60"/></div>
         <div class="field"><label>개당 장착 수</label><input id="perItem" type="number" value="4"/></div>
-        <div class="field"><label>수명 (회전)</label><input id="lifetime" type="number" value="5"/></div>
+        <div class="field"><label>수명 (최대 사용 횟수)</label><input id="lifetime" type="number" value="5"/></div>
       </div>
     </div>
-
     <div class="card">
       <div class="card-title">분석 방식 선택</div>
       <div class="route-grid">
@@ -201,7 +185,6 @@ table.dt tr:last-child td{border-bottom:none;}
           <div class="route-desc">신제품 등 실적 없는 품목 — 색상별 예상 투입량을 직접 입력해서 분석합니다.</div>
         </div>
       </div>
-
       <div id="routeDataSection">
         <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()"
           ondragover="event.preventDefault();this.classList.add('drag-over')"
@@ -214,12 +197,10 @@ table.dt tr:last-child td{border-bottom:none;}
         <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleFile(this.files[0])"/>
         <div id="fileStatus" class="notice"></div>
       </div>
-
       <div id="routeManualSection" style="display:none">
         <div class="info-box" style="margin-top:0">다음 단계에서 색상별 예상 일평균·일최대 투입량을 직접 입력하세요.</div>
       </div>
     </div>
-
     <div style="text-align:right"><button class="btn btn-primary" onclick="goStep2()">다음 → 분석 조건 설정</button></div>
   </div>
 
@@ -241,11 +222,8 @@ table.dt tr:last-child td{border-bottom:none;}
             </select>
           </div>
         </div>
-        <div class="info-box" id="qtyInfoBox">
-          계획량 기준으로 분석합니다. 실제 생산 실적 기준으로 보려면 <strong>포장일자 컬럼을 생산일 컬럼으로 변경</strong>하고 투입량 기준을 실적으로 전환하세요.
-        </div>
+        <div class="info-box" id="qtyInfoBox">계획량 기준으로 분석합니다. 실적 기준으로 보려면 <strong>포장일자 컬럼을 생산일 컬럼으로 변경</strong>하고 투입량 기준을 실적으로 전환하세요.</div>
       </div>
-
       <div class="card" id="filterCard" style="display:none">
         <div class="card-title">분석 대상 선택 <span style="font-weight:400;font-size:11px">— 자재명 또는 부품코드, 복수 선택 가능</span></div>
         <div class="filter-tabs">
@@ -262,16 +240,8 @@ table.dt tr:last-child td{border-bottom:none;}
         <div id="filterResult" class="notice"></div>
       </div>
     </div>
-
     <div class="card">
       <div class="card-title">색상별 조정</div>
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-        <span style="font-size:13px;color:#888">계산 기준</span>
-        <div class="tgl">
-          <button class="tgl-btn active" id="togAvg" onclick="setCalcMode('avg')">일평균</button>
-          <button class="tgl-btn" id="togMax" onclick="setCalcMode('max')">일최대</button>
-        </div>
-      </div>
       <div id="colorTableNote" style="display:none" class="info-box">색상별 예상 일평균·일최대 투입량을 직접 입력하세요.</div>
       <table class="dt">
         <thead><tr>
@@ -282,7 +252,6 @@ table.dt tr:last-child td{border-bottom:none;}
       </table>
       <button class="btn btn-sm" style="margin-top:10px" onclick="addManualColor()">+ 색상 추가</button>
     </div>
-
     <div style="display:flex;justify-content:space-between">
       <button class="btn" onclick="goStep(1)">← 이전</button>
       <button class="btn btn-primary" onclick="goStep3()">분석 실행 →</button>
@@ -298,7 +267,7 @@ table.dt tr:last-child td{border-bottom:none;}
 
 <script>
 let rawData=[],filteredData=[],parsedHeaders=[],colorRows=[];
-let calcMode='avg',qtyMode='plan',qtyPlanCol='';
+let qtyMode='plan',qtyPlanCol='';
 let colMap={mat:'',code:'',date:'',color:'',qty:''};
 let allItems=[],selectedKeys=new Set(),filterTab='mat';
 let route='data';
@@ -311,12 +280,7 @@ function selectRoute(r){
   document.getElementById('routeManualSection').style.display=r==='manual'?'block':'none';
 }
 
-function goStep(n){
-  [1,2,3].forEach(i=>{
-    document.getElementById('page'+i).classList.toggle('active',i===n);
-    document.getElementById('tab'+i).classList.toggle('active',i===n);
-  });
-}
+function goStep(n){[1,2,3].forEach(i=>{document.getElementById('page'+i).classList.toggle('active',i===n);document.getElementById('tab'+i).classList.toggle('active',i===n);});}
 
 function goStep2(){
   document.getElementById('step2DataSection').style.display=route==='data'?'block':'none';
@@ -344,19 +308,16 @@ function handleFile(file){
   if(ext==='csv')reader.readAsBinaryString(file);else reader.readAsArrayBuffer(file);
 }
 
-function guessCol(headers,keywords){
-  for(const kw of keywords){const idx=headers.findIndex(h=>h.toLowerCase().includes(kw.toLowerCase()));if(idx>=0)return headers[idx];}
-  return '';
-}
+function guessCol(headers,keywords){for(const kw of keywords){const idx=headers.findIndex(h=>h.toLowerCase().includes(kw.toLowerCase()));if(idx>=0)return headers[idx];}return '';}
 
 function buildMappingUI(){
   const container=document.getElementById('mappingSelects');
   const fields=[
-    {key:'mat',  label:'자재명 컬럼',                          keywords:['부품명','자재명','자재','품명','item','material']},
-    {key:'code', label:'부품코드 컬럼 (없으면 없음)',            keywords:['부품코드','코드','code','part']},
-    {key:'date', label:'포장일자 컬럼 (실적 시 생산일로 변경)',   keywords:['포장일자','날짜','일자','date','포장']},
-    {key:'color',label:'색상 컬럼',                            keywords:['색상','color','컬러']},
-    {key:'qty',  label:'실적 컬럼',                            keywords:['실적','투입','수량','qty','amount','actual']},
+    {key:'mat',  label:'자재명 컬럼',keywords:['부품명','자재명','자재','품명','item','material']},
+    {key:'code', label:'부품코드 컬럼 (없으면 없음)',keywords:['부품코드','코드','code','part']},
+    {key:'date', label:'포장일자 컬럼 (실적 시 생산일로 변경)',keywords:['포장일자','날짜','일자','date','포장']},
+    {key:'color',label:'색상 컬럼',keywords:['색상','color','컬러']},
+    {key:'qty',  label:'실적 컬럼',keywords:['실적','투입','수량','qty','amount','actual']},
   ];
   container.innerHTML='';
   const noFile=rawData.length===0;
@@ -385,11 +346,12 @@ function setQtyMode(mode){
   document.getElementById('planColWrap').style.display=mode==='plan'?'flex':'none';
   const box=document.getElementById('qtyInfoBox');
   if(box){
-    if(mode==='plan') box.innerHTML='계획량 기준으로 분석합니다. 실제 생산 실적 기준으로 보려면 <strong>포장일자 컬럼을 생산일 컬럼으로 변경</strong>하고 투입량 기준을 실적으로 전환하세요.';
+    if(mode==='plan')box.innerHTML='계획량 기준으로 분석합니다. 실적 기준으로 보려면 <strong>포장일자 컬럼을 생산일 컬럼으로 변경</strong>하고 투입량 기준을 실적으로 전환하세요.';
     else box.innerHTML='실적 기준으로 분석합니다. 날짜 컬럼이 <strong>생산일</strong>로 설정되어 있는지 확인하세요.';
   }
   updateColors();
 }
+
 function getQtyCol(){
   if(qtyMode==='plan'&&qtyPlanCol)return parsedHeaders.indexOf(qtyPlanCol);
   return parsedHeaders.indexOf(colMap.qty);
@@ -420,8 +382,7 @@ function renderChips(){
   const visible=allItems.filter(item=>item.type===filterTab&&(!kw||item.value.toLowerCase().includes(kw)));
   document.getElementById('chipArea').innerHTML=visible.slice(0,80).map(item=>{
     const active=selectedKeys.has(kk(item));
-    return '<div class="chip '+(active?'active ':''+(item.type==='code'?'by-code':''))+'" onclick="toggleItem(\''+kk(item).replace(/'/g,"\\'")+'\')">'
-      +item.value+'<span style="font-size:10px;opacity:.6;margin-left:3px">'+item.rows.length+'행</span></div>';
+    return '<div class="chip '+(active?'active ':''+(item.type==='code'?'by-code':''))+'" onclick="toggleItem(\''+kk(item).replace(/'/g,"\\'")+'\')">'+item.value+'<span style="font-size:10px;opacity:.6;margin-left:3px">'+item.rows.length+'행</span></div>';
   }).join('');
   updateSelSummary();
 }
@@ -477,18 +438,11 @@ function renderColorTable(){
     tbody.appendChild(tr);
   });
 }
-
-function setCalcMode(mode){calcMode=mode;document.getElementById('togAvg').classList.toggle('active',mode==='avg');document.getElementById('togMax').classList.toggle('active',mode==='max');}
 function addManualColor(){colorRows.push({color:'신규',avg:0,max:0,days:0,fixed:''});renderColorTable();}
 
-function calcNeeded(perItem){
-  return colorRows.reduce((sum,row)=>{
-    const fv=String(row.fixed).trim();
-    if(fv!==''&&fv!=='undefined')return sum+(parseFloat(fv)||0);
-    return sum+Math.ceil((calcMode==='avg'?row.avg:row.max)/perItem);
-  },0);
-}
+/* ── 핵심 계산 함수 ── */
 
+// 날짜 → 주차 키 (월요일 기준)
 function getWeekKey(dateStr){
   let d;
   if(typeof dateStr==='number'){d=new Date(Math.round((dateStr-25569)*86400*1000));}
@@ -508,11 +462,43 @@ function getWeekKey(dateStr){
   return{key:mon.toISOString().slice(0,10),label:fmt(mon)+'~'+fmt(fri)};
 }
 
-function buildDailyAndWeekly(totalHooks,perItem,lifetime){
-  if(route==='manual')return null;
-  const peel=Math.ceil(totalHooks/lifetime),avail=totalHooks-peel;
+// 날짜별 필요 걸이 계산
+function calcDayNeeded(byColor, perItem){
+  return colorRows.reduce((sum,row)=>{
+    const fv=String(row.fixed).trim();
+    if(fv!==''&&fv!=='undefined')return sum+(parseFloat(fv)||0);
+    return sum+Math.ceil((byColor[row.color]||0)/perItem);
+  },0);
+}
+
+// 전체 분석 데이터 빌드 (신규 로직)
+function buildAnalysis(totalHooks, perItem, lifetime){
   const ci=parsedHeaders.indexOf(colMap.color),di=parsedHeaders.indexOf(colMap.date),qi=getQtyCol();
+
+  // 수동 입력 모드: 일평균/일최대 기반으로 주간 시뮬레이션
+  if(route==='manual'){
+    const avgNeeded=calcDayNeededFromColorRows(perItem,'avg');
+    const maxNeeded=calcDayNeededFromColorRows(perItem,'max');
+    // 주 5일 기준 평균 주간 사용횟수
+    const weeklyUsageAvg=avgNeeded*5;
+    const weeklyUsageMax=maxNeeded*5;
+    const weeklyPeelAvg=Math.ceil(weeklyUsageAvg/lifetime);
+    const weeklyPeelMax=Math.ceil(weeklyUsageMax/lifetime);
+    const availAvg=totalHooks-weeklyPeelAvg;
+    const availMax=totalHooks-weeklyPeelMax;
+    return{
+      mode:'manual',
+      avgNeeded,maxNeeded,
+      weeklyPeelAvg,weeklyPeelMax,
+      availAvg,availMax,
+      totalNeededAvg:avgNeeded+weeklyPeelAvg,
+      totalNeededMax:maxNeeded+weeklyPeelMax,
+    };
+  }
+
   if(ci<0||di<0||qi<0)return null;
+
+  // 일별 집계
   const dayMap={};
   filteredData.forEach(r=>{
     const date=String(r[di]||'').trim(),color=String(r[ci]||'').trim(),qty=parseFloat(r[qi])||0;
@@ -520,48 +506,56 @@ function buildDailyAndWeekly(totalHooks,perItem,lifetime){
     if(!dayMap[date])dayMap[date]={};
     dayMap[date][color]=(dayMap[date][color]||0)+qty;
   });
+
   const colors=[...new Set(colorRows.map(c=>c.color))];
   const dailyRows=Object.entries(dayMap).sort((a,b)=>a[0].localeCompare(b[0])).map(([date,byColor])=>{
-    const needed=colorRows.reduce((sum,row)=>{
-      const fv=String(row.fixed).trim();
-      if(fv!==''&&fv!=='undefined')return sum+(parseFloat(fv)||0);
-      return sum+Math.ceil((byColor[row.color]||0)/perItem);
-    },0);
-    return{date,byColor,total:colors.reduce((s,c)=>s+(byColor[c]||0),0),needed,over:needed>avail};
+    const needed=calcDayNeeded(byColor,perItem);
+    const total=colors.reduce((s,c)=>s+(byColor[c]||0),0);
+    return{date,byColor,total,needed};
   });
+
+  // 주차별 집계 (신규 로직 적용)
   const weekMap={};
   dailyRows.forEach(row=>{
     const wk=getWeekKey(row.date);if(!wk)return;
-    if(!weekMap[wk.key])weekMap[wk.key]={label:wk.label,days:[],byColor:{},hasOver:false};
+    if(!weekMap[wk.key])weekMap[wk.key]={label:wk.label,days:[],byColor:{},weeklyUsage:0};
     weekMap[wk.key].days.push(row);
-    if(row.over)weekMap[wk.key].hasOver=true;
+    weekMap[wk.key].weeklyUsage+=row.needed; // ② 주간 총 사용횟수 누적
     colors.forEach(c=>{weekMap[wk.key].byColor[c]=(weekMap[wk.key].byColor[c]||0)+(row.byColor[c]||0);});
   });
-  return{dailyRows,weekMap,colors,avail};
+
+  // 주차별 박리량·가용·판정 계산
+  const weekList=Object.entries(weekMap).sort((a,b)=>a[0].localeCompare(b[0])).map(([,wk])=>{
+    const weeklyPeel=Math.ceil(wk.weeklyUsage/lifetime); // ③
+    const avail=totalHooks-weeklyPeel; // ④
+    const peakNeeded=wk.days.length>0?Math.max(...wk.days.map(d=>d.needed)):0;
+    const over=peakNeeded>avail; // ⑤
+    const totalNeeded=peakNeeded+weeklyPeel; // ⑥
+    return{...wk,weeklyPeel,avail,peakNeeded,over,totalNeeded};
+  });
+
+  return{mode:'data',dailyRows,weekList,colors};
 }
 
-function calcDailyRate(totalHooks,perItem,lifetime){
-  if(route==='manual'||filteredData.length===0||colorRows.length===0)return{rate:null,ok:0,total:0};
-  const peel=Math.ceil(totalHooks/lifetime),avail=totalHooks-peel;
-  const ci=parsedHeaders.indexOf(colMap.color),di=parsedHeaders.indexOf(colMap.date),qi=getQtyCol();
-  if(ci<0||di<0||qi<0)return{rate:null,ok:0,total:0};
-  const dayMap={};
-  filteredData.forEach(r=>{
-    const date=String(r[di]||'').trim(),color=String(r[ci]||'').trim(),qty=parseFloat(r[qi])||0;
-    if(!date)return;
-    if(!dayMap[date])dayMap[date]={};
-    dayMap[date][color]=(dayMap[date][color]||0)+qty;
+function calcDayNeededFromColorRows(perItem,mode){
+  return colorRows.reduce((sum,row)=>{
+    const fv=String(row.fixed).trim();
+    if(fv!==''&&fv!=='undefined')return sum+(parseFloat(fv)||0);
+    const val=mode==='avg'?row.avg:row.max;
+    return sum+Math.ceil(val/perItem);
+  },0);
+}
+
+// 시뮬레이션: 총 걸이 수별 대응률 계산
+function calcSimulation(weekList,totalHooks,perItem,lifetime){
+  if(!weekList||weekList.length===0)return{rate:null,ok:0,total:0};
+  let ok=0;
+  weekList.forEach(wk=>{
+    const weeklyPeel=Math.ceil(wk.weeklyUsage/lifetime);
+    const avail=totalHooks-weeklyPeel;
+    if(wk.peakNeeded<=avail)ok++;
   });
-  const dates=Object.keys(dayMap);let ok=0;
-  dates.forEach(date=>{
-    const n=colorRows.reduce((sum,row)=>{
-      const fv=String(row.fixed).trim();
-      if(fv!==''&&fv!=='undefined')return sum+(parseFloat(fv)||0);
-      return sum+Math.ceil((dayMap[date][row.color]||0)/perItem);
-    },0);
-    if(n<=avail)ok++;
-  });
-  return{rate:dates.length>0?ok/dates.length:null,ok,total:dates.length};
+  return{rate:weekList.length>0?ok/weekList.length:null,ok,total:weekList.length};
 }
 
 function goStep3(){goStep(3);renderResult();}
@@ -572,79 +566,189 @@ function renderResult(){
   const perItem=parseInt(document.getElementById('perItem').value)||1;
   const lifetime=parseInt(document.getElementById('lifetime').value)||1;
 
-  function stats(total){
-    const peel=Math.ceil(total/lifetime),avail=total-peel,maxProd=avail*perItem;
-    const needed=calcNeeded(perItem),margin=needed>0?Math.round((avail-needed)/needed*100):0;
-    return{peel,avail,maxProd,needed,margin,dr:calcDailyRate(total,perItem,lifetime)};
-  }
+  const analysis=buildAnalysis(cur,perItem,lifetime);
+
   function mTag(m){if(m<0)return'<span class="tag tag-err">'+m+'%</span>';if(m<30)return'<span class="tag tag-warn">+'+m+'%</span>';return'<span class="tag tag-ok">+'+m+'%</span>';}
   function rTag(r){if(r===null)return'<span class="tag" style="background:#f5f4f0;color:#888">-</span>';const p=Math.round(r*100);if(p<85)return'<span class="tag tag-err">'+p+'%</span>';if(p<90)return'<span class="tag tag-warn">'+p+'%</span>';return'<span class="tag tag-ok">'+p+'%</span>';}
 
-  const s0=stats(cur);
-  const data=buildDailyAndWeekly(cur,perItem,lifetime);
+  let summaryHTML='',dailyHTML='',weeklyHTML='',simHTML='',colorHTML='';
 
-  let analysisDesc=route==='manual'?'직접 입력 (신제품·실적 없음)':
-    (()=>{
-      const matSel=allItems.filter(i=>i.type==='mat'&&selectedKeys.has(kk(i)));
-      const codeSel=allItems.filter(i=>i.type==='code'&&selectedKeys.has(kk(i)));
-      let parts=[];
-      if(matSel.length)parts.push('자재명 '+matSel.length+'개');
-      if(codeSel.length)parts.push('부품코드 '+codeSel.length+'개');
-      return(parts.length?parts.join(' + '):'전체')+' · '+filteredData.length+'행';
-    })();
-  const qtyLabel=route==='manual'?'직접 입력':qtyMode==='plan'?(qtyPlanCol?'계획량 ('+qtyPlanCol+')':'계획량'):'실적';
+  if(route==='manual'&&analysis){
+    const{avgNeeded,maxNeeded,weeklyPeelAvg,weeklyPeelMax,availAvg,availMax,totalNeededAvg,totalNeededMax}=analysis;
+    summaryHTML='<div class="g4" style="gap:12px;margin-bottom:12px">'
+      +'<div class="metric-card"><div class="metric-label">현재 걸이</div><div class="metric-value">'+cur+'개</div></div>'
+      +'<div class="metric-card"><div class="metric-label">일 필요 (평균)</div><div class="metric-value">'+avgNeeded+'개</div></div>'
+      +'<div class="metric-card"><div class="metric-label">주간 박리 (평균)</div><div class="metric-value">'+weeklyPeelAvg+'개</div></div>'
+      +'<div class="metric-card"><div class="metric-label">필요 총 걸이 (평균)</div><div class="metric-value">'+totalNeededAvg+'개</div></div>'
+      +'</div>'
+      +'<div class="info-box">일 최대 기준 필요 총 걸이: <strong>'+totalNeededMax+'개</strong> (피크일 '+maxNeeded+'개 + 박리 '+weeklyPeelMax+'개)</div>';
+  } else if(analysis&&analysis.weekList){
+    const{weekList}=analysis;
+    const maxTotalNeeded=Math.max(...weekList.map(w=>w.totalNeeded));
+    const peakWeek=weekList.find(w=>w.totalNeeded===maxTotalNeeded);
+    const dr=calcSimulation(weekList,cur,perItem,lifetime);
+    const okWeeks=weekList.filter(w=>!w.over).length;
 
-  const recs=[];
-  for(let add=0;add<=300;add++){
-    const s=stats(cur+add),dr=calcDailyRate(cur+add,perItem,lifetime);
-    if(!recs.find(r=>r.label==='부족 해소')&&s.margin>=0)recs.push({label:'부족 해소',add,s,color:'#D85A30'});
-    if(!recs.find(r=>r.label==='여유율 30%')&&s.margin>=30)recs.push({label:'여유율 30%',add,s,color:'#1D9E75'});
-    if(!recs.find(r=>r.label==='여유율 50%')&&s.margin>=50)recs.push({label:'여유율 50%',add,s,color:'#378ADD'});
-    if(dr.rate!==null&&!recs.find(r=>r.label==='일대응 85%+')&&dr.rate>=0.85)recs.push({label:'일대응 85%+',add,s,color:'#7F77DD'});
-    if(dr.rate!==null&&!recs.find(r=>r.label==='일대응 90%+')&&dr.rate>=0.90)recs.push({label:'일대응 90%+',add,s,color:'#534AB7'});
-    if(recs.length>=5)break;
+    summaryHTML='<div class="g4" style="gap:12px;margin-bottom:12px">'
+      +'<div class="metric-card"><div class="metric-label">현재 걸이</div><div class="metric-value">'+cur+'개</div></div>'
+      +'<div class="metric-card"><div class="metric-label">최대 필요 총 걸이</div><div class="metric-value">'+maxTotalNeeded+'개</div></div>'
+      +'<div class="metric-card"><div class="metric-label">주간 대응률</div><div class="metric-value">'+(weekList.length>0?Math.round(okWeeks/weekList.length*100):0)+'%</div></div>'
+      +'<div class="metric-card"><div class="metric-label">분석 주차</div><div class="metric-value">'+weekList.length+'주</div></div>'
+      +'</div>';
+    if(peakWeek){
+      summaryHTML+='<div class="warn-box">피크 주차 ('+peakWeek.label+'): 주간 사용 '+peakWeek.weeklyUsage+'회 → 박리 '+peakWeek.weeklyPeel+'개 → 가용 '+peakWeek.avail+'개 → 필요 총 <strong>'+peakWeek.totalNeeded+'개</strong></div>';
+    }
   }
 
-  const simRows=[0,10,20,30,50,80,100].map(add=>{const s=stats(cur+add);return'<tr><td style="font-weight:'+(add===0?500:400)+'">'+(add===0?'현재':'+'+add+'개')+' ('+(cur+add)+'개)</td><td>'+s.peel+'</td><td>'+s.avail+'</td><td>'+s.maxProd+'</td><td>'+s.needed+'</td><td>'+mTag(s.margin)+'</td><td>'+rTag(s.dr.rate)+'</td></tr>';}).join('');
+  // 추천 로직 (신규)
+  let recsHTML='';
+  if(analysis&&analysis.weekList&&analysis.weekList.length>0){
+    const{weekList}=analysis;
+    const recs=[];
+    for(let total=cur;total<=cur+300;total+=1){
+      const simOk=weekList.filter(wk=>{
+        const peel=Math.ceil(wk.weeklyUsage/lifetime);
+        return wk.peakNeeded<=(total-peel);
+      }).length;
+      const rate=simOk/weekList.length;
+      const maxNeeded=Math.max(...weekList.map(wk=>{
+        const peel=Math.ceil(wk.weeklyUsage/lifetime);
+        return wk.peakNeeded+(total-peel<0?total:peel);
+      }));
 
-  const colorDetail=colorRows.map(row=>{
-    const val=calcMode==='avg'?row.avg:row.max,fv=String(row.fixed).trim();
-    const h=(fv!==''&&fv!=='undefined')?(parseFloat(fv)||0):Math.ceil(val/perItem);
-    return'<tr><td>'+row.color+'</td><td>'+Math.round(row.avg)+'</td><td>'+Math.round(row.max)+'</td><td>'+(route==='manual'?'—':row.days)+'</td><td style="font-weight:500">'+h+'</td><td><span class="tag" style="background:#f5f4f0;color:#888">'+(fv!==''&&fv!=='undefined'?'고정':'자동')+'</span></td></tr>';
+      if(!recs.find(r=>r.label==='100% 대응')&&rate>=1.0)recs.push({label:'100% 대응',total,add:total-cur,rate,color:'#534AB7'});
+      if(!recs.find(r=>r.label==='주간 90%+')&&rate>=0.9)recs.push({label:'주간 90%+',total,add:total-cur,rate,color:'#378ADD'});
+      if(!recs.find(r=>r.label==='주간 85%+')&&rate>=0.85)recs.push({label:'주간 85%+',total,add:total-cur,rate,color:'#1D9E75'});
+      if(!recs.find(r=>r.label==='주간 70%+')&&rate>=0.7)recs.push({label:'주간 70%+',total,add:total-cur,rate,color:'#D85A30'});
+      if(recs.length>=4)break;
+    }
+    // 정렬: 대응률 낮은 것부터
+    recs.sort((a,b)=>a.rate-b.rate);
+    recsHTML=recs.map((r,i)=>{
+      const weeklyPeelAtTotal=weekList.map(wk=>Math.ceil(wk.weeklyUsage/lifetime));
+      const avgPeel=weeklyPeelAtTotal.length>0?Math.round(weeklyPeelAtTotal.reduce((a,b)=>a+b,0)/weeklyPeelAtTotal.length):0;
+      return '<div class="rec-card '+(i===recs.length-1?'best':'')+'"><div class="rec-badge" style="background:'+r.color+'22;color:'+r.color+'">'+r.label+'</div>'
+        +'<div style="flex:1"><div style="font-size:14px;font-weight:500">'+(r.add===0?'현재 유지':'+'+r.add+'개 추가')+' → 총 '+r.total+'개</div>'
+        +'<div style="font-size:12px;color:#888;margin-top:2px">주간 대응률 '+Math.round(r.rate*100)+'% · 평균 박리 '+avgPeel+'개/주</div></div>'
+        +rTag(r.rate)+'</div>';
+    }).join('');
+  }
+
+  // 일자별 테이블
+  if(analysis&&analysis.dailyRows&&analysis.colors){
+    const{dailyRows,weekList,colors}=analysis;
+    const cThs=colors.map(c=>'<th>'+c+'</th>').join('');
+
+    // 주차별 가용 걸이 맵
+    const weekAvailMap={};
+    if(weekList)weekList.forEach(wk=>{wk.days.forEach(d=>{weekAvailMap[d.date]=wk.avail;});});
+
+    dailyHTML='<div style="overflow-x:auto"><table class="dt"><thead><tr>'
+      +'<th style="text-align:left">일자</th>'+cThs+'<th>합계</th><th>필요걸이</th><th>가용걸이</th><th>판정</th>'
+      +'</tr></thead><tbody>'
+      +dailyRows.map(row=>{
+        const avail=weekAvailMap[row.date]!==undefined?weekAvailMap[row.date]:'—';
+        const over=typeof avail==='number'&&row.needed>avail;
+        return '<tr><td style="white-space:nowrap">'+row.date+'</td>'
+          +colors.map(c=>'<td>'+(row.byColor[c]||0)+'</td>').join('')
+          +'<td>'+row.total+'</td>'
+          +'<td class="'+(over?'cell-over':'')+'">'+row.needed+'</td>'
+          +'<td>'+avail+'</td>'
+          +'<td>'+(over?'<span class="tag tag-err">초과</span>':(row.needed>0?'<span class="tag tag-ok">대응</span>':''))+'</td></tr>';
+      }).join('')
+      +'</tbody></table></div>';
+
+    // 주차별 테이블
+    if(weekList){
+      const maxTN=Math.max(...weekList.map(w=>w.totalNeeded));
+      let wn=1;
+      const wTrs=weekList.map(wk=>{
+        const isPeak=wk.totalNeeded===maxTN;
+        const dayTrs=wk.days.map(d=>{
+          const avail=wk.avail;
+          const over=d.needed>avail;
+          return '<tr style="font-size:12px;background:#fafaf8"><td style="text-align:left;padding-left:20px;color:#888">'+d.date+'</td>'
+            +colors.map(c=>'<td style="color:#888">'+(d.byColor[c]||0)+'</td>').join('')
+            +'<td style="color:#888">'+d.total+'</td>'
+            +'<td class="'+(over?'cell-over':'')+'" style="font-size:12px">'+d.needed+'</td>'
+            +'<td style="color:#888">'+avail+'</td>'
+            +'<td style="font-size:12px;color:#888">'+wk.weeklyUsage+'회</td>'
+            +'<td style="color:#888">'+wk.weeklyPeel+'</td>'
+            +'<td></td></tr>';
+        }).join('');
+        return '<tr class="week-hdr'+(isPeak?' highlight-row':'')+'"><td style="text-align:left">'+(wn++)+'주 ('+wk.label+')</td>'
+          +colors.map(c=>'<td>'+Math.round(wk.byColor[c]||0)+'</td>').join('')
+          +'<td>'+Math.round(Object.values(wk.byColor).reduce((a,b)=>a+b,0))+'</td>'
+          +'<td style="font-weight:500">'+wk.peakNeeded+'</td>'
+          +'<td style="font-weight:500">'+wk.avail+'</td>'
+          +'<td>'+wk.weeklyUsage+'회</td>'
+          +'<td>'+wk.weeklyPeel+'</td>'
+          +'<td>'+(wk.over?'<span class="tag tag-err">X 초과</span>':'<span class="tag tag-ok">O 여유</span>')+'</td></tr>'
+          +dayTrs;
+      }).join('');
+      weeklyHTML='<div style="overflow-x:auto"><table class="dt"><thead><tr>'
+        +'<th style="text-align:left">주차</th>'+cThs
+        +'<th>투입합계</th><th>피크일<br>필요걸이</th><th>가용걸이</th><th>주간<br>사용횟수</th><th>주간<br>박리량</th><th>판정</th>'
+        +'</tr></thead><tbody>'+wTrs+'</tbody></table></div>'
+        +'<div class="notice">노란 행 = 피크 주차 · 판정: 피크일 필요걸이 > 가용걸이 → X 초과</div>'
+        +'<div class="notice">박리량 = ⌈주간 사용횟수 ÷ 수명('+lifetime+')⌉ · 가용 = 총 걸이('+cur+') − 박리량</div>';
+    }
+  }
+
+  // 시뮬레이션 테이블
+  if(analysis&&analysis.weekList){
+    const{weekList}=analysis;
+    const simSteps=[0,10,20,30,50,80,100,120,150,169,200].map(add=>{
+      const total=cur+add;
+      const simOk=weekList.filter(wk=>{
+        const peel=Math.ceil(wk.weeklyUsage/lifetime);
+        return wk.peakNeeded<=(total-peel);
+      }).length;
+      const rate=weekList.length>0?simOk/weekList.length:0;
+      const peakPeel=Math.max(...weekList.map(wk=>Math.ceil(wk.weeklyUsage/lifetime)));
+      const minAvail=total-peakPeel;
+      const maxPeakNeeded=Math.max(...weekList.map(w=>w.peakNeeded));
+      return{add,total,rate,simOk,minAvail,maxPeakNeeded,peakPeel};
+    });
+    // 중복 대응률 제거
+    const seen=new Set();
+    simHTML='<div style="overflow-x:auto"><table class="dt"><thead><tr>'
+      +'<th style="text-align:left">총 걸이</th><th>피크 박리량</th><th>피크 최소 가용</th><th>피크 필요걸이</th><th>주간 대응률</th><th>판정</th>'
+      +'</tr></thead><tbody>'
+      +simSteps.map(s=>{
+        const rateStr=Math.round(s.rate*100)+'%';
+        const isDup=seen.has(rateStr);seen.add(rateStr);
+        return '<tr'+(s.add===0?' style="font-weight:500"':'')+'>'
+          +'<td style="text-align:left">'+(s.add===0?'현재 '+s.total+'개':'+'+s.add+'개 ('+s.total+'개)')+'</td>'
+          +'<td>'+s.peakPeel+'개</td>'
+          +'<td class="'+(s.minAvail<0?'cell-over':'')+'">'+s.minAvail+'개</td>'
+          +'<td>'+s.maxPeakNeeded+'개</td>'
+          +'<td>'+rTag(s.rate)+'</td>'
+          +'<td>'+(s.minAvail>=s.maxPeakNeeded?'<span class="tag tag-ok">100%</span>':'<span class="tag tag-err">부족</span>')+'</td>'
+          +'</tr>';
+      }).join('')
+      +'</tbody></table></div>'
+      +'<div class="notice">피크 박리량: 가장 물량이 많은 주 박리량 · 주간 대응률: 전체 주차 중 가용 충분한 주 비율</div>';
+  }
+
+  // 색상별
+  colorHTML=colorRows.map(row=>{
+    const fv=String(row.fixed).trim();
+    const hAvg=(fv!==''&&fv!=='undefined')?(parseFloat(fv)||0):Math.ceil(row.avg/perItem);
+    const hMax=(fv!==''&&fv!=='undefined')?(parseFloat(fv)||0):Math.ceil(row.max/perItem);
+    return'<tr><td>'+row.color+'</td><td>'+Math.round(row.avg)+'</td><td>'+Math.round(row.max)+'</td>'
+      +'<td>'+(route==='manual'?'—':row.days)+'</td>'
+      +'<td>'+hAvg+'</td><td>'+hMax+'</td>'
+      +'<td><span class="tag" style="background:#f5f4f0;color:#888">'+(fv!==''&&fv!=='undefined'?'고정':'자동')+'</span></td></tr>';
   }).join('');
 
-  let dailyHTML='',weeklyHTML='';
-  if(route==='manual'){
-    dailyHTML='<p style="font-size:13px;color:#888">직접 입력 모드에서는 일자별/주차별 분석을 표시하지 않습니다.</p>';
-    weeklyHTML=dailyHTML;
-  } else if(data){
-    const{dailyRows,weekMap,colors,avail}=data;
-    const cThs=colors.map(c=>'<th>'+c+'</th>').join('');
-    dailyHTML='<div style="overflow-x:auto"><table class="dt"><thead><tr><th style="text-align:left">일자</th>'+cThs+'<th>합계</th><th>필요걸이</th><th>판정</th></tr></thead><tbody>'
-      +dailyRows.map(row=>'<tr><td style="white-space:nowrap">'+row.date+'</td>'
-        +colors.map(c=>'<td>'+(row.byColor[c]||0)+'</td>').join('')
-        +'<td>'+row.total+'</td><td class="'+(row.over?'cell-over':'')+'">'+row.needed+'</td>'
-        +'<td>'+(row.over?'<span class="tag tag-err">초과</span>':(row.needed>0?'<span class="tag tag-ok">대응</span>':''))+'</td></tr>').join('')
-      +'</tbody></table></div><div class="notice">가용 걸이: <strong>'+avail+'개</strong> · 기준: <strong>'+qtyLabel+'</strong></div>';
-
-    const weeks=Object.entries(weekMap).sort((a,b)=>a[0].localeCompare(b[0]));let wn=1;
-    const wTrs=weeks.map(([,wk])=>{
-      const maxNeed=wk.days.length>0?Math.max(...wk.days.map(d=>d.needed)):0;
-      const dayTrs=wk.days.map(d=>'<tr style="font-size:12px;background:#fafaf8"><td style="text-align:left;padding-left:20px;color:#888">'+d.date+'</td>'
-        +colors.map(c=>'<td style="color:#888">'+(d.byColor[c]||0)+'</td>').join('')
-        +'<td style="color:#888">'+d.total+'</td><td class="'+(d.over?'cell-over':'')+'" style="font-size:12px">'+d.needed+'</td><td></td></tr>').join('');
-      return'<tr class="week-hdr"><td style="text-align:left">'+wn+++'주 ('+wk.label+')</td>'
-        +colors.map(c=>'<td>'+Math.round(wk.byColor[c]||0)+'</td>').join('')
-        +'<td>'+Math.round(Object.values(wk.byColor).reduce((a,b)=>a+b,0))+'</td>'
-        +'<td style="font-weight:500">'+maxNeed+'</td>'
-        +'<td>'+(wk.hasOver?'<span class="tag tag-err">X 초과</span>':'<span class="tag tag-ok">O 여유</span>')+'</td></tr>'+dayTrs;
-    }).join('');
-    weeklyHTML='<div style="overflow-x:auto"><table class="dt"><thead><tr><th style="text-align:left">주차</th>'+cThs+'<th>투입합계</th><th>일최대 필요걸이</th><th>판정</th></tr></thead><tbody>'+wTrs+'</tbody></table></div>'
-      +'<div class="notice">판정: 주중 하루라도 필요걸이 > 가용('+avail+'개) → X 초과</div>';
-  } else {
-    dailyHTML='<p style="font-size:13px;color:#888">데이터를 업로드하면 표시됩니다.</p>';
-    weeklyHTML=dailyHTML;
-  }
+  const matSel=allItems.filter(i=>i.type==='mat'&&selectedKeys.has(kk(i)));
+  const codeSel=allItems.filter(i=>i.type==='code'&&selectedKeys.has(kk(i)));
+  let parts=[];
+  if(matSel.length)parts.push('자재명 '+matSel.length+'개');
+  if(codeSel.length)parts.push('부품코드 '+codeSel.length+'개');
+  const selDesc=route==='manual'?'직접 입력':(parts.length?parts.join(' + ')+'  · '+filteredData.length+'행':'전체');
+  const qtyLabel=route==='manual'?'직접 입력':qtyMode==='plan'?(qtyPlanCol?'계획량 ('+qtyPlanCol+')':'계획량'):'실적';
 
   const tabsHTML=route==='manual'
     ?'<div class="rtabs"><div class="rtab active" id="rtab3" onclick="switchRTab(3)">수량 시뮬레이션</div><div class="rtab" id="rtab4" onclick="switchRTab(4)">색상별</div></div>'
@@ -652,44 +756,27 @@ function renderResult(){
   const af=route==='manual'?3:1;
 
   document.getElementById('resultArea').innerHTML=
-    '<div class="card"><div class="card-title">분석 대상</div>'
+    '<div class="card"><div class="card-title">분석 개요</div>'
     +'<div style="font-size:13px;padding:8px 12px;background:#f5f4f0;border-radius:8px;margin-bottom:12px;display:flex;gap:16px;flex-wrap:wrap">'
-    +'<span>분석 방식: <strong>'+(route==='manual'?'직접 입력':'데이터 기반')+'</strong></span>'
-    +'<span>선택: <strong>'+analysisDesc+'</strong></span>'
+    +'<span>선택: <strong>'+selDesc+'</strong></span>'
     +'<span>투입량: <strong>'+qtyLabel+'</strong></span>'
-    +'<span>계산 기준: <strong>'+(calcMode==='avg'?'일평균':'일최대')+'</strong></span></div>'
-    +'<div class="g3"><div class="metric-card"><div class="metric-label">현재 걸이</div><div class="metric-value">'+cur+'개</div></div>'
-    +'<div class="metric-card"><div class="metric-label">가용 걸이</div><div class="metric-value">'+s0.avail+'개</div></div>'
-    +'<div class="metric-card"><div class="metric-label">필요 걸이</div><div class="metric-value">'+s0.needed+'개</div></div></div>'
-    +'<div style="font-size:13px;color:#888;padding:8px 12px;background:#f5f4f0;border-radius:8px;margin-top:12px">'
-    +'박리 '+s0.peel+'개/주 · 가용 '+s0.avail+'개 · 일 최대 '+s0.maxProd+'개 · 여유율 '+mTag(s0.margin)
-    +(s0.dr.rate!==null?' · 일별 대응률 '+rTag(s0.dr.rate)+' ('+s0.dr.ok+'/'+s0.dr.total+'일)':'')+'</div></div>'
+    +'<span>수명: <strong>'+lifetime+'회</strong></span>'
+    +'</div>'
+    +summaryHTML+'</div>'
 
     +'<div class="card"><div class="card-title">추천 추가 수량</div>'
-    +recs.map((r,i)=>'<div class="rec-card '+(i===0?'best':'')+'"><div class="rec-badge" style="background:'+r.color+'22;color:'+r.color+'">'+r.label+'</div>'
-      +'<div style="flex:1"><div style="font-size:14px;font-weight:500">+'+r.add+'개 추가 → 총 '+(cur+r.add)+'개</div>'
-      +'<div style="font-size:12px;color:#888;margin-top:2px">여유율 '+(r.s.margin>=0?'+'+r.s.margin:r.s.margin)+'% · 가용 '+r.s.avail+'개 · 일 최대 '+r.s.maxProd+'개</div></div>'
-      +(r.s.dr.rate!==null?rTag(r.s.dr.rate):'')+'</div>').join('')+'</div>'
+    +(recsHTML||'<p style="font-size:13px;color:#888">데이터를 업로드하면 추천이 표시됩니다.</p>')
+    +'</div>'
 
     +'<div class="card">'+tabsHTML
-    +'<div class="rsec '+(af===1?'active':'')+'" id="rsec1"><div class="card-title">일자별 분석</div>'+dailyHTML+'</div>'
-    +'<div class="rsec" id="rsec2"><div class="card-title">주차별 분석 (월~금 기준)</div>'+weeklyHTML+'</div>'
-    +'<div class="rsec '+(af===3?'active':'')+'" id="rsec3"><div class="card-title">걸이 수량 시뮬레이션</div>'
-    +'<div style="overflow-x:auto"><table class="dt"><thead><tr><th style="text-align:left">걸이 수</th><th>박리/주</th><th>가용</th><th>일 최대</th><th>필요</th><th>여유율</th><th>일대응률</th></tr></thead>'
-    +'<tbody>'+simRows+'</tbody></table></div></div>'
+    +'<div class="rsec '+(af===1?'active':'')+'" id="rsec1"><div class="card-title">일자별 분석</div>'+(dailyHTML||'<p style="font-size:13px;color:#888">데이터를 업로드하면 표시됩니다.</p>')+'</div>'
+    +'<div class="rsec" id="rsec2"><div class="card-title">주차별 분석 (월~금 기준) — 수정된 로직 적용</div>'+(weeklyHTML||'<p style="font-size:13px;color:#888">데이터를 업로드하면 표시됩니다.</p>')+'</div>'
+    +'<div class="rsec '+(af===3?'active':'')+'" id="rsec3"><div class="card-title">걸이 수량 시뮬레이션</div>'+(simHTML||'<p style="font-size:13px;color:#888">데이터를 업로드하면 표시됩니다.</p>')+'</div>'
     +'<div class="rsec" id="rsec4"><div class="card-title">색상별 분석</div>'
-    +'<div style="overflow-x:auto"><table class="dt"><thead><tr><th style="text-align:left">색상</th><th>일평균</th><th>일최대</th><th>투입일수</th><th>필요 걸이</th><th>산출</th></tr></thead>'
-    +'<tbody>'+colorDetail+'</tbody></table></div>'
-    +'<div class="notice">필요 걸이 합계: <strong>'+s0.needed+'개</strong> (기준: '+(calcMode==='avg'?'일평균':'일최대')+')</div></div></div>'
-
-    +'<div class="card"><div class="card-title">계산 과정</div>'
-    +'<div style="font-size:13px;line-height:2.2;font-family:monospace">'
-    +'① 박리 수량 = ⌈'+cur+' ÷ '+lifetime+'⌉ = '+s0.peel+'개/주<br>'
-    +'② 가용 걸이 = '+cur+' − '+s0.peel+' = '+s0.avail+'개<br>'
-    +'③ 일 최대 생산 = '+s0.avail+' × '+perItem+' = '+s0.maxProd+'개<br>'
-    +'④ 필요 걸이 = '+colorRows.map(r=>{const fv=String(r.fixed).trim(),v=calcMode==='avg'?r.avg:r.max,h=(fv!==''&&fv!=='undefined')?(parseFloat(fv)||0):Math.ceil(v/perItem);return r.color+'('+h+')';}).join(' + ')+' = '+s0.needed+'개<br>'
-    +'⑤ 여유율 = ('+s0.avail+' − '+s0.needed+') ÷ '+s0.needed+' × 100 = '+(s0.margin>=0?'+'+s0.margin:s0.margin)+'%'
-    +'</div></div>';
+    +'<div style="overflow-x:auto"><table class="dt"><thead><tr>'
+    +'<th style="text-align:left">색상</th><th>일평균</th><th>일최대</th><th>투입일수</th><th>필요걸이(평균)</th><th>필요걸이(최대)</th><th>산출</th>'
+    +'</tr></thead><tbody>'+colorHTML+'</tbody></table></div></div>'
+    +'</div>';
 }
 </script>
 </body>
