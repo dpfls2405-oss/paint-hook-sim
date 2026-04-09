@@ -34,7 +34,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 function login(){
   const pw=document.getElementById('pw').value;
   if(pw==='6720'){
-    document.cookie='auth=6720;path=/;max-age='+60*60*24*30;
+    document.cookie='auth=6720;path=/;max-age='+60*60*24*36500;
     window.location.href='/';
   } else {
     document.getElementById('err').textContent='비밀번호가 올바르지 않습니다.';
