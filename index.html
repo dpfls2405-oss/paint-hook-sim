@@ -98,6 +98,51 @@ table.dt tr.week-hdr td{border-top:1px solid #ddd;}
 .sel-summary{font-size:12px;padding:6px 10px;background:#f5f4f0;border-radius:8px;margin-bottom:8px;line-height:1.6;}
 .highlight-row{background:#fff8e1;}
 </style>
+
+<script>
+(function(){
+  function getCookie(name){
+    const match=document.cookie.match(new RegExp('(?:^|; )'+name+'=([^;]*)'));
+    return match?decodeURIComponent(match[1]):null;
+  }
+  if(getCookie('phsim_auth')!=='6720'){
+    document.addEventListener('DOMContentLoaded',function(){
+      document.body.style.display='none';
+      const overlay=document.createElement('div');
+      overlay.id='auth-overlay';
+      overlay.style.cssText='position:fixed;inset:0;background:#f5f4f0;display:flex;align-items:center;justify-content:center;z-index:9999;';
+      overlay.innerHTML=`
+        <div style="background:#fff;border:1px solid #e8e5e0;border-radius:16px;padding:2.5rem 2rem;width:100%;max-width:360px;text-align:center;">
+          <div style="font-size:18px;font-weight:500;margin-bottom:6px;">도장 걸이 수량 시뮬레이션</div>
+          <div style="font-size:13px;color:#888;margin-bottom:2rem;">접근하려면 비밀번호를 입력하세요</div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:1rem;text-align:left;">
+            <label style="font-size:12px;color:#888;">비밀번호</label>
+            <input id="auth-pw" type="password" placeholder="····" maxlength="20"
+              style="border:1px solid #ddd;border-radius:8px;padding:10px 14px;font-size:20px;letter-spacing:0.3em;text-align:center;width:100%;outline:none;"
+              onkeydown="if(event.key==='Enter')window._authCheck()"/>
+          </div>
+          <button onclick="window._authCheck()"
+            style="width:100%;padding:11px;border-radius:8px;border:none;background:#1a1a1a;color:#fff;font-size:15px;cursor:pointer;">입장</button>
+          <div id="auth-err" style="font-size:12px;color:#A32D2D;margin-top:8px;min-height:18px;"></div>
+        </div>`;
+      document.body.appendChild(overlay);
+      document.body.style.display='';
+      setTimeout(()=>document.getElementById('auth-pw').focus(),100);
+    });
+    window._authCheck=function(){
+      const pw=document.getElementById('auth-pw').value;
+      if(pw==='6720'){
+        document.cookie='phsim_auth=6720;path=/;max-age='+60*60*24*36500;
+        document.getElementById('auth-overlay').remove();
+      } else {
+        document.getElementById('auth-err').textContent='비밀번호가 올바르지 않습니다.';
+        document.getElementById('auth-pw').value='';
+        document.getElementById('auth-pw').focus();
+      }
+    };
+  }
+})();
+</script>
 </head>
 <body>
 <div class="page">
